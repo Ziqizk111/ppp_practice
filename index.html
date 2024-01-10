@@ -23,22 +23,29 @@
     <p class="additional-text">如果你的一生有100岁，你从现在开始赚钱，60岁左右退休，你的年薪需要多少才能赚够你一生所需的生活费？</p>
 
     <!-- 第一个输入框 -->
-    <label for="monthlyExpense">现在一个月的生活费：</label>
+    <label for="monthlyExpense" class="additional-text">现在一个月的生活费：</label>
     <input type="text" id="monthlyExpense" name="monthlyExpense">
 
 	<p>  
 	</p>
 
     <!-- 第二个输入框 -->
-    <label for="startingAge">你多大开始工作？</label>
+    <label for="startingAge"  class="additional-text">你多大开始工作？</label>
     <input type="text" id="startingAge" name="startingAge">
+	<p>  
+	</p>
+
 	
 	<!-- 第三个输入框 -->
-    <label for="startingAge">你什么时候退休？</label>
-    <input type="text" id="endAge" name="endAge">
+    <label for="endingAge"  class="additional-text">你什么时候退休？</label>
+    <input type="text" id="endingAge" name="endingAge">
+	<p>  
+	</p>
 	
 	<!-- 计算按钮 -->
     <button onclick="calculate()">计算</button>
+<p>  
+	</p>
 
     <!-- 显示计算结果的区域 -->
     <div id="result"></div>
