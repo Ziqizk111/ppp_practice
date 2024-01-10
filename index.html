@@ -20,7 +20,7 @@
     <p>你要赚多少，才能覆盖你一生所需？</p>
     
     <!-- 添加的文字段落 -->
-    <p class="additional-text">如果你的一生有100岁，你从现在开始赚钱，60岁左右退休，你的年薪需要多少才能赚够你一生所需的生活费？</p>
+    <p class="additional-text">如果你的一生有90岁，你从现在开始赚钱，60岁左右退休，你的年薪需要多少才能赚够你一生所需的生活费？</p>
 
     <!-- 第一个输入框 -->
     <label for="monthlyExpense" class="additional-text">现在一个月的生活费：</label>
@@ -59,7 +59,7 @@
                 return;
             }
 
-            var lifeExpectancy = 100;
+            var lifeExpectancy = 90;
             var inflationRate = 0.03;
             var salaryIncreaseRate = 0.03;
 
@@ -80,7 +80,7 @@
             var initialSalary = totalExpense / sum;
 
             // 显示计算结果
-            document.getElementById('result').innerHTML = '如果按照现在这个生活费水平活到100岁，你总共需要花费' + totalExpense.toFixed(0) +
+            document.getElementById('result').innerHTML = '如果按照现在这个生活费水平活到90岁，你总共需要花费' + totalExpense.toFixed(0) +
                 '。你今年年薪至少要为' + initialSalary.toFixed(0) + '，才能在退休前赚够这么多钱。';
         }
     </script>
