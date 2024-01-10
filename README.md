@@ -1,2 +1,2 @@
-# popo_recored
-record popo time
+# practice
+learning something
