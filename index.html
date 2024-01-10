@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Simple Website</title>
+    <style>
+        body {
+            font-family: '黑体', sans-serif;
+            font-size: 24px;
+        }
+
+        .additional-text {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+	<p>你要赚多少，才能覆盖你一生所需？</p>
+	
+    <!-- 添加的文字段落 -->
+    <p class="additional-text">如果你的一生有100岁，你从现在开始赚钱，60岁退休，你的年薪需要多少才能赚够你一生所需的生活费？</p>
+
+    <!-- 第一个输入框 -->
+    <label for="monthlyExpense">现在一个月的生活费：</label>
+    <input type="text" id="monthlyExpense" name="monthlyExpense">
+
+    <!-- 第二个输入框 -->
+    <label for="startingAge">你多大开始工作？</label>
+    <input type="text" id="startingAge" name="startingAge">
+	
+	<!-- 第三个输入框 -->
+    <label for="startingAge">你什么时候退休？</label>
+    <input type="text" id="endAge" name="endAge">
+	
+	<!-- 计算按钮 -->
+    <button onclick="calculate()">计算</button>
+
+    <!-- 显示计算结果的区域 -->
+    <div id="result"></div>
+
+    <script>
+        function calculate() {
+            // 获取输入框的值
+            var monthlyExpense = parseFloat(document.getElementById('monthlyExpense').value);
+            var startingAge = parseFloat(document.getElementById('startingAge').value);
+
+            // 进行计算
+            var result = monthlyExpense * 1200 / (60 - startingAge);
+
+            // 显示计算结果
+            document.getElementById('result').innerHTML = '计算结果：' + result.toFixed(2);
+        }
+    </script>
+</body>
+</html>
