@@ -61,7 +61,7 @@
 
             var lifeExpectancy = 100;
             var inflationRate = 0.03;
-            var salaryIncreaseRate = 0.02;
+            var salaryIncreaseRate = 0.03;
 
             var totalExpense = 0;
 
@@ -81,12 +81,13 @@
 
             // 显示计算结果
             document.getElementById('result').innerHTML = '如果按照现在这个生活费水平活到100岁，你总共需要花费' + totalExpense.toFixed(0) +
-                '。你今年年薪至少要为' + initialSalary.toFixed(0) + '，才能在退休前赚够这么多钱。';
+                '。
+                你今年年薪至少要为' + initialSalary.toFixed(0) + '，才能在退休前赚够这么多钱。';
         }
     </script>
 
     <!-- 添加的文字段落 -->
-    <p class="additional-text">假设通货膨胀为3%每年，你工资每年上涨2%。</p>
+    <p class="additional-text">假设通货膨胀为3%每年，你工资每年上涨3%。</p>
 
 </body>
 </html>
