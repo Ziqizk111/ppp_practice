@@ -17,78 +17,76 @@
 </head>
 <body>
 
-	<p>你要赚多少，才能覆盖你一生所需？</p>
-	
+    <p>你要赚多少，才能覆盖你一生所需？</p>
+    
     <!-- 添加的文字段落 -->
-    <p class="additional-text">如果你的一生有100岁，你从现在开始赚钱，60岁左右退休，你的年薪需要多少才能赚够你一生所需的生活费？
-    </p>
+    <p class="additional-text">如果你的一生有100岁，你从现在开始赚钱，60岁左右退休，你的年薪需要多少才能赚够你一生所需的生活费？</p>
 
     <!-- 第一个输入框 -->
     <label for="monthlyExpense" class="additional-text">现在一个月的生活费：</label>
-    <input type="text" id="monthlyExpense" name="monthlyExpense">
+    <input type="number" id="monthlyExpense" name="monthlyExpense">
 
-	<p>  
-	</p>
+    <p></p>
 
     <!-- 第二个输入框 -->
-    <label for="startingAge"  class="additional-text">你现在多少岁？</label>
-    <input type="text" id="startingAge" name="startingAge">
-	<p>  
-	</p>
+    <label for="startingAge" class="additional-text">你现在多少岁？</label>
+    <input type="number" id="startingAge" name="startingAge">
 
-	
-	<!-- 第三个输入框 -->
-    <label for="endingAge"  class="additional-text">你什么时候退休？</label>
-    <input type="text" id="endingAge" name="endingAge">
-	<p>  
-	</p>
-	
-	<!-- 计算按钮 -->
+    <p></p>
+
+    <!-- 第三个输入框 -->
+    <label for="endingAge" class="additional-text">你什么时候退休？</label>
+    <input type="number" id="endingAge" name="endingAge">
+
+    <p></p>
+
+    <!-- 计算按钮 -->
     <button onclick="calculate()">计算</button>
-<p>  
-	</p>
+
+    <p></p>
 
     <!-- 显示计算结果的区域 -->
     <div id="result"></div>
 
-   
+    <script>
+        function calculate() {
+            var monthlyExpense = parseFloat(document.getElementById('monthlyExpense').value);
+            var startingAge = parseFloat(document.getElementById('startingAge').value);
+            var endingAge = parseFloat(document.getElementById('endingAge').value);
 
-	<script>
-		 function calculate() {
-   			var monthlyExpense = parseFloat(document.getElementById('monthlyExpense').value);
-  			var startingAge = parseFloat(document.getElementById('startingAge').value);
-			 var endingAge = parseFloat(document.getElementById('endingAge').value);
-    			var lifeExpectancy = 100;
-    			var inflationRate = 0.03;
-    			var salaryIncreaseRate = 0.02;
+            if (isNaN(monthlyExpense) || isNaN(startingAge) || isNaN(endingAge)) {
+                alert('请输入有效的数字。');
+                return;
+            }
 
-    			var totalExpense = 0;// 总收入
+            var lifeExpectancy = 100;
+            var inflationRate = 0.03;
+            var salaryIncreaseRate = 0.02;
 
-    			for (var age = startingAge; age <= lifeExpectancy; age++) {
-        			var annualExpense = monthlyExpense * 12 * Math.pow((1 + inflationRate), (age - startingAge));
-        			totalExpense += annualExpense;
-    			}
+            var totalExpense = 0;
 
-    			var years = endingAge - startingAge; // 年数
-			 var sum = 0;
-			 for (var year = 0; year < years; year++) {
-        			sum += Math.pow((1 + salaryIncreaseRate), year);
-    			}
-			 var initialSalary = totalExpense / sum;
+            for (var age = startingAge; age <= lifeExpectancy; age++) {
+                var annualExpense = monthlyExpense * 12 * Math.pow((1 + inflationRate), (age - startingAge));
+                totalExpense += annualExpense;
+            }
 
-    			
-    			// 显示计算结果
-    			document.getElementById('result').innerHTML = '如果按照现在这个生活费水平活到100岁，你总共需要花费' + totalExpense.toFixed(0) + '。
-				你今年年薪至少要为' + initialSalary.toFixed(0) + '，才能在退休前赚够这么多钱。';
-		}
+            var years = endingAge - startingAge;
+            var sum = 0;
 
-		 </script>
-	
+            for (var year = 0; year < years; year++) {
+                sum += Math.pow((1 + salaryIncreaseRate), year);
+            }
 
-	<!-- 添加的文字段落 -->
+            var initialSalary = totalExpense / sum;
+
+            // 显示计算结果
+            document.getElementById('result').innerHTML = '如果按照现在这个生活费水平活到100岁，你总共需要花费' + totalExpense.toFixed(0) +
+                '。你今年年薪至少要为' + initialSalary.toFixed(0) + '，才能在退休前赚够这么多钱。';
+        }
+    </script>
+
+    <!-- 添加的文字段落 -->
     <p class="additional-text">假设通货膨胀为3%每年，你工资每年上涨2%。</p>
-
-	 <p class="additional-text">zonghuafei + totalExpense.toFixed(0)</p>
 
 </body>
 </html>
