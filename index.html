@@ -55,12 +55,13 @@
             // 获取输入框的值
             var monthlyExpense = parseFloat(document.getElementById('monthlyExpense').value);
             var startingAge = parseFloat(document.getElementById('startingAge').value);
+		var endingAge = parseFloat(document.getElementById('endingAge').value);
 
             // 进行计算
-            var result = monthlyExpense * 1200 / (60 - startingAge);
+            var result = monthlyExpense * 1200 / (endingAge - startingAge);
 
             // 显示计算结果
-            document.getElementById('result').innerHTML = '如果按照现在这个生活费水平活到100岁，你需要每年赚' + result.toFixed(0) + '，才能覆盖你从0岁到100岁的一生所需。';
+            document.getElementById('result').innerHTML = '如果按照现在这个生活费水平从出生活到100岁，你需要每年赚' + result.toFixed(0) + '，才能覆盖你从0岁到100岁的一生所需。';
         }
     </script>
 </body>
