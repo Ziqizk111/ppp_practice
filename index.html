@@ -20,7 +20,8 @@
 	<p>你要赚多少，才能覆盖你一生所需？</p>
 	
     <!-- 添加的文字段落 -->
-    <p class="additional-text">如果你的一生有100岁，你从现在开始赚钱，60岁左右退休，你的年薪需要多少才能赚够你一生所需的生活费？</p>
+    <p class="additional-text">如果你的一生有100岁，你从现在开始赚钱，60岁左右退休，你的年薪需要多少才能赚够你一生所需的生活费？
+    </p>
 
     <!-- 第一个输入框 -->
     <label for="monthlyExpense" class="additional-text">现在一个月的生活费：</label>
@@ -30,7 +31,7 @@
 	</p>
 
     <!-- 第二个输入框 -->
-    <label for="startingAge"  class="additional-text">你多大开始工作？</label>
+    <label for="startingAge"  class="additional-text">你现在多少岁？</label>
     <input type="text" id="startingAge" name="startingAge">
 	<p>  
 	</p>
@@ -50,19 +51,42 @@
     <!-- 显示计算结果的区域 -->
     <div id="result"></div>
 
-    <script>
-        function calculate() {
-            // 获取输入框的值
-            var monthlyExpense = parseFloat(document.getElementById('monthlyExpense').value);
-            var startingAge = parseFloat(document.getElementById('startingAge').value);
-		var endingAge = parseFloat(document.getElementById('endingAge').value);
+   
 
-            // 进行计算
-            var result = monthlyExpense * 1200 / (endingAge - startingAge);
+	<script>
+		 function calculate() {
+   			var monthlyExpense = parseFloat(document.getElementById('monthlyExpense').value);
+  			var startingAge = parseFloat(document.getElementById('startingAge').value);
+			 var endingAge = parseFloat(document.getElementById('endingAge').value);
+    			var lifeExpectancy = 100;
+    			var inflationRate = 0.03;
+    			var salaryIncreaseRate = 0.02;
 
-            // 显示计算结果
-            document.getElementById('result').innerHTML = '如果按照现在这个生活费水平从出生活到100岁，你需要每年赚' + result.toFixed(0) + '，才能覆盖你从0岁到100岁的一生所需。';
-        }
-    </script>
+    			var totalExpense = 0;// 总收入
+
+    			for (var age = startingAge; age <= lifeExpectancy; age++) {
+        			var annualExpense = monthlyExpense * 12 * Math.pow((1 + inflationRate), (age - startingAge));
+        			totalExpense += annualExpense;
+    			}
+
+    			var years = endingAge - startingAge; // 年数
+			 var sum = 0;
+			 for (var year = 0; year < years; year++) {
+        			sum += Math.pow((1 + salaryIncreaseRate), year);
+    			}
+			 var initialSalary = totalExpense / sum;
+
+    			
+    			// 显示计算结果
+    			document.getElementById('result').innerHTML = '如果按照现在这个生活费水平活到100岁，你总共需要花费' + totalExpense.toFixed(0) + '。
+				你今年年薪至少要为' + initialSalary.toFixed(0) '，才能在退休前赚够这么多钱。';
+		}
+
+		 </script>
+	
+
+	<!-- 添加的文字段落 -->
+    <p class="additional-text">假设通货膨胀为3%每年，你工资每年上涨2%。</p>
+
 </body>
 </html>
