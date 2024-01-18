@@ -48,6 +48,13 @@
     <!-- 显示计算结果的区域 -->
     <div id="result"></div>
 
+    <!-- 计算按钮2 -->
+    <button onclick="calculate2()">我有退休金</button>
+
+    <p></p>
+    <!-- 显示计算结果的区域 -->
+    <div id="result2"></div>
+
     <script>
         function calculate() {
             var monthlyExpense = parseFloat(document.getElementById('monthlyExpense').value);
@@ -83,10 +90,64 @@
             document.getElementById('result').innerHTML = '如果按照现在这个生活费水平活到90岁，你总共需要花费' + totalExpense.toFixed(0) +
                 '。你今年年薪至少要为' + initialSalary.toFixed(0) + '，才能在退休前赚够这么多钱。';
         }
+
+        function calculate2() {
+            var monthlyExpense = parseFloat(document.getElementById('monthlyExpense').value);
+            var startingAge = parseFloat(document.getElementById('startingAge').value);
+            var endingAge = parseFloat(document.getElementById('endingAge').value);
+
+            if (isNaN(monthlyExpense) || isNaN(startingAge) || isNaN(endingAge)) {
+                alert('请输入有效的数字。');
+                return;
+            }
+
+            var lifeExpectancy = 90;
+            var inflationRate = 0.03;
+            var salaryIncreaseRate = 0.03;
+            var retireSalaryRate = 0.03;
+
+            var totalExpense = 0;
+
+            for (var age = startingAge; age <= lifeExpectancy; age++) {
+                var annualExpense = monthlyExpense * 12 * Math.pow((1 + inflationRate), (age - startingAge));
+                totalExpense += annualExpense;
+            }
+
+            var years = endingAge - startingAge;
+            var sum1 = 0;
+
+            for (var year = endingAge; year <= lifeExpectancy; year++) {
+                sum1 += Math.pow((1 + salaryIncreaseRate), (year - endingAge));
+            }
+			
+			var sum2 = 0;
+			for (var year = 0; year <= years; year++) {
+                sum2 += Math.pow((1 + inflationRate), year);
+            }
+			var startAverageSalary = 7000 * Math.pow((1 + inflationRate), (years -1));
+			var retireCode = 0.01*years*sum1*startAverageSalary/2;
+			
+			
+			if (years < 15) {
+				document.getElementById('result2').innerHTML = '退休金没有交够15年，请用第一种计算方法。';
+			} else if ( monthlyExpense <= 35) {
+				document.getElementById('result2').innerHTML = '您确定这些生活费够花吗？如果是，恭喜您，只要每个月有低保，您的生活就有保障了。';
+			} else {
+				var initialSalary = (totalExpense/12 - retireCode)/(retireCode/7000 + sum2);
+				var startRetireSalary = startAverageSalary * (1+initialSalary/7000)/2*0.01*years;
+				if (startRetireSalary >= monthlyExpense*Math.pow((1 + inflationRate), years)) {
+					document.getElementById('result2').innerHTML = '您的基础退休金足够您退休后生活所需，只要挣够生活费就够了。';
+				}else{
+					document.getElementById('result2').innerHTML = '如果按照现在这个生活费水平活到90岁，你总共需要花费' + totalExpense.toFixed(0) +'。你今年年薪至少要为' + initialSalary.toFixed(0)*12 + '，可以在有退休金的基础上养活自己。';
+				}
+			}
+
+            
+        }
     </script>
 
     <!-- 添加的文字段落 -->
-    <p class="additional-text">假设通货膨胀为3%每年，你工资每年上涨3%。</p>
+    <p class="additional-text">假设通货膨胀为3%每年，你工资每年上涨3%，社会平均工资每年上涨3%，山东省2022年城镇单位就业人员月平均工资约为7000元,假设工作时每年都交退休金。基础退休金计算公式：退休上年度全市城镇单位就业人员月平均工资×（1＋本人平均缴费指数）÷2×缴费年限×1%；缴费指数=本人缴费工资基数÷社会平均工资。</p>
 
 </body>
 </html>
