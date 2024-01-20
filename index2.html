@@ -36,6 +36,8 @@
                     var selectedRow = cohort1.data.find(function(row) {
                         return row.GeneName === geneNameInput;
                     });
+			// Log information about the selected row for debugging
+console.log('Selected Row:', selectedRow);		
 
                     // 检查是否找到了匹配的行
                     if (!selectedRow) {
