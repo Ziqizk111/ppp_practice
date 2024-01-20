@@ -31,14 +31,19 @@
         }
                 
 					var cohort1 = results;
-
+console.log('Header:', cohort1.meta.fields);
+					// Log the first few rows of data
+console.log('First Few Rows:');
+for (var i = 0; i < Math.min(5, cohort1.data.length); i++) {
+    console.log(cohort1.data[i]);
+}
                     // 查找具有特定基因名的那一行
                     var selectedRow = cohort1.data.find(function(row) {
                         return row.GeneName === geneNameInput;
                     });
 			// Log information about the selected row for debugging
 console.log('Selected Row:', selectedRow);		
-
+console.log();
                     // 检查是否找到了匹配的行
                     if (!selectedRow) {
                         console.log(geneNameInput);
