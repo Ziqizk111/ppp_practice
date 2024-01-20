@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gene Expression Box Plot</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+    <h1>Gene Expression Box Plot</h1>
+    <label for="geneInput">Enter Gene Name:</label>
+    <input type="text" id="geneInput">
+    <button onclick="plotExpression()">Plot Expression</button>
+    <div>
+        <canvas id="expressionChart" width="800" height="400"></canvas>
+    </div>
+    <script>
+        function plotExpression() {
+            // 获取基因名输入框的值
+            var geneNameInput = document.getElementById('geneInput').value;
+
+            Papa.parse('cohort1.csv', {
+                download: true,
+                header: true,
+				complete: function(results, file) {
+        if (results.errors.length > 0) {
+            console.error('Error parsing CSV file:', results.errors);
+            return;
+        }
+                
+					var cohort1 = results;
+
+                    // 查找具有特定基因名的那一行
+                    var selectedRow = cohort1.data.find(function(row) {
+                        return row.GeneName === geneNameInput;
+                    });
+
+                    // 检查是否找到了匹配的行
+                    if (!selectedRow) {
+                        console.log("Sorry, can't find this gene. Please ensure your input is the right pig ensembl name, e.g., ENSSSCG00000000131.");
+                    } else {
+                        // 提取第2到第17个数值，分配到分组1
+                        var valuesGroup1 = Object.values(selectedRow).slice(1, 18);
+
+                        // 提取第18到第31个数值，分配到分组2
+                        var valuesGroup2 = Object.values(selectedRow).slice(18, 32);
+
+                        // 提取第32到第41个数值，分配到分组3
+                        var valuesGroup3 = Object.values(selectedRow).slice(32, 42);
+
+                        // 提取第42到第59个数值，分配到分组4
+                        var valuesGroup4 = Object.values(selectedRow).slice(42, 60);
+
+                        // 创建 plotData 对象
+                        var plotData = {
+                            labels: ['Resistance', 'Resilience', 'Susceptible', 'Early_death'],
+                            datasets: [
+                                {
+                                    label: 'Expression Distribution',
+                                    data: [valuesGroup1, valuesGroup2, valuesGroup3, valuesGroup4],
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    borderWidth: 1
+                                }
+                            ]
+                        };
+
+                        var ctx = document.getElementById('expressionChart').getContext('2d');
+                        var myChart;
+
+                        // 销毁之前的图表
+                        if (myChart) {
+                            myChart.destroy();
+                        }
+
+                        // 创建新的箱线图
+                        myChart = new Chart(ctx, {
+                            type: 'boxplot',
+                            data: plotData,
+                            options: {
+                                scales: {
+                                    y: {
+                                        title: {
+                                            display: true,
+                                            text: 'Expression Level'
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
