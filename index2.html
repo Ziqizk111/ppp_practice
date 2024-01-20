@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gene Expression Box Plot</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-box-and-violin-plot"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body>
@@ -39,7 +41,7 @@ for (var i = 0; i < Math.min(5, cohort1.data.length); i++) {
 }
                     // 查找具有特定基因名的那一行
                     var selectedRow = cohort1.data.find(function(row) {
-			    console.log('Comparing:', row.geneName, geneNameInput);
+			    // console.log('Comparing:', row.geneName, geneNameInput);
                         return row.geneName === geneNameInput;
 			    
                     });
