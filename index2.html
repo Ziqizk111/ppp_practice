@@ -25,7 +25,8 @@
                 header: true,
 				complete: function(results, file) {
         if (results.errors.length > 0) {
-            console.error('Error parsing CSV file:', results.errors);
+            
+		console.error('Error parsing CSV file:', results.errors);
             return;
         }
                 
@@ -38,7 +39,8 @@
 
                     // 检查是否找到了匹配的行
                     if (!selectedRow) {
-                        console.log("Sorry, can't find this gene. Please ensure your input is the right pig ensembl name, e.g., ENSSSCG00000000131.");
+                        console.log(geneNameInput);
+			    console.log("Sorry, can't find this gene. Please ensure your input is the right pig ensembl name, e.g., ENSSSCG00000000131.");
                     } else {
                         // 提取第2到第17个数值，分配到分组1
                         var valuesGroup1 = Object.values(selectedRow).slice(1, 18);
