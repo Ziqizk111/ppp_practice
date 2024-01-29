@@ -13,6 +13,7 @@
     <input type="text" id="geneInput">
     <button onclick="plotExpression()">Plot Expression</button>
     <div id="expressionChart" style="width: 800px; height: 400px;"></div>
+    <div id="errorMessage" style="color: red;"></div>
 
     <script>
         function plotExpression() {
@@ -37,6 +38,7 @@
 
                     // 检查是否找到了匹配的行
                     if (!selectedRow) {
+                        document.getElementById('errorMessage').innerText = "Sorry, can't find this gene. Please ensure your input is the right pig ensembl name or gene name, e.g., ENSSSCG00000000002";
                         console.log("Sorry, can't find this gene. Please ensure your input is the right pig ensembl name, e.g., ENSSSCG00000000131.");
                     } else {
                         // 提取第2到第17个数值，分配到分组1
@@ -56,21 +58,25 @@
                             {
                                 type: 'box',
                                 y: valuesGroup1,
+                                jitter: 0.3,
                                 name: 'Resistance'
                             },
                             {
                                 type: 'box',
                                 y: valuesGroup2,
+                                jitter: 0.3,
                                 name: 'Resilience'
                             },
                             {
                                 type: 'box',
                                 y: valuesGroup3,
+                                jitter: 0.3,
                                 name: 'Susceptible'
                             },
                             {
                                 type: 'box',
                                 y: valuesGroup4,
+                                jitter: 0.3,
                                 name: 'Early_death'
                             }
                         ];
