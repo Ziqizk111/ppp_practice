@@ -35,10 +35,15 @@
                     var selectedRow = cohort1.data.find(function(row) {
                         return row.geneName === geneNameInput;
                     });
+                    if (!selectedRow) {
+                        var selectedRow = cohort1.data.find(function(row){
+                            return row.geneSymbol === geneNameInput;
+                        });
+                    }
 
                     // 检查是否找到了匹配的行
                     if (!selectedRow) {
-                        document.getElementById('errorMessage').innerText = "Sorry, can't find this gene. Please ensure your input is the right pig ensembl name or gene name, e.g., ENSSSCG00000000002";
+                        document.getElementById('errorMessage').innerText = "Sorry, can't find this gene. Please ensure your input is the right pig ensembl name or gene name, e.g., ENSSSCG00000000002 or IL6";
                         console.log("Sorry, can't find this gene. Please ensure your input is the right pig ensembl name, e.g., ENSSSCG00000000131.");
                     } else {
                         // 提取第2到第17个数值，分配到分组1
