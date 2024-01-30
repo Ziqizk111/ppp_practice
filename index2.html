@@ -9,8 +9,8 @@
 </head>
 <body>
     <h1>Gene Expression Box Plot</h1>
-    <button onclick="showPage('page1')">Cohort 1</button>
-    <button onclick="showPage('page2')">Cohort 2</button>
+    <p>Try refresh page if results can't show appropriately.</p>
+    
     <div id="page1" class="page active">
         <h2>Cohort 1</h2>
         <label for="geneInput">Enter Gene Name:</label>
@@ -61,6 +61,7 @@
                         document.getElementById('errorMessage').innerText = "Sorry, can't find this gene. Please ensure your input is the right pig ensembl name or gene name, e.g., ENSSSCG00000000002 or IL6";
                         console.log("Sorry, can't find this gene. Please ensure your input is the right pig ensembl name, e.g., ENSSSCG00000000131.");
                     } else {
+                        document.getElementById('errorMessage').innerText = '';
                         // 提取第2到第17个数值，分配到分组1
                         var valuesGroup1 = Object.values(selectedRow).slice(1, 18);
 
