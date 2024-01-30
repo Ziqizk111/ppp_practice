@@ -9,11 +9,22 @@
 </head>
 <body>
     <h1>Gene Expression Box Plot</h1>
-    <label for="geneInput">Enter Gene Name:</label>
-    <input type="text" id="geneInput">
-    <button onclick="plotExpression()">Plot Expression</button>
-    <div id="expressionChart" style="width: 800px; height: 400px;"></div>
-    <div id="errorMessage" style="color: red;"></div>
+    <button onclick="showPage('page1')">Cohort 1</button>
+    <button onclick="showPage('page2')">Cohort 2</button>
+    <div id="page1" class="page active">
+        <h2>Cohort 1</h2>
+        <label for="geneInput">Enter Gene Name:</label>
+        <input type="text" id="geneInput">
+        <button onclick="plotExpression()">Plot Expression</button>
+        <div id="expressionChart" style="width: 800px; height: 400px;"></div>
+        <div id="errorMessage" style="color: red;"></div>
+    </div>
+    <div id="page2" class="page">
+        <h2>Cohort 2</h2>
+        <!-- Add your content for Page 2 here -->
+    </div>
+
+    
 
     <script>
         function plotExpression() {
