@@ -21,7 +21,15 @@
     </div>
     <div id="page2" class="page">
         <h2>Cohort 2</h2>
-        <!-- Add your content for Page 2 here -->
+		<label for="geneInput">Enter Gene Name:</label>
+		<input type="text" id="geneInput2">
+		<button onclick="plotExpression2()">Plot Expression</button>
+		<div id="expressionChart1" style="width: 800px; height: 400px;"></div>
+		<div id="expressionChart2" style="width: 800px; height: 400px;"></div>
+		<div id="expressionChart3" style="width: 800px; height: 400px;"></div>
+		<div id="expressionChart4" style="width: 800px; height: 400px;"></div>
+		<div id="errorMessage2" style="color: red;"></div>
+        
     </div>
 
     
@@ -120,6 +128,265 @@
 
                         // 使用 Plotly.newPlot 创建箱线图
                         Plotly.newPlot('expressionChart', data, layout);
+                        
+                    }
+                }
+            });
+        }
+		function plotExpression2() {
+            // 获取基因名输入框的值
+            var geneNameInput = document.getElementById('geneInput2').value;
+
+            Papa.parse('cohort2FPKM.csv', {
+                download: true,
+                header: true,
+                complete: function(results, file) {
+                    if (results.errors.length > 0) {
+                        console.error('Error parsing CSV file:', results.errors);
+                        return;
+                    }
+
+                    var cohort2 = results;
+
+                    // 查找具有特定基因名的那一行
+                    var selectedRow = cohort2.data.find(function(row) {
+                        return row.geneName === geneNameInput2;
+                    });
+                    if (!selectedRow) {
+                        var selectedRow = cohort2.data.find(function(row){
+                            return row.geneSymbol === geneNameInput2;
+                        });
+                    }
+
+                    // 检查是否找到了匹配的行
+                    if (!selectedRow) {
+                        var chartCanvas1 = document.getElementById('expressionChart1');
+						var chartCanvas2 = document.getElementById('expressionChart2');
+						var chartCanvas3 = document.getElementById('expressionChart3');
+						var chartCanvas4 = document.getElementById('expressionChart4');
+                        if (chartCanvas1) {
+                            chartCanvas1.parentNode.removeChild(chartCanvas1);
+							chartCanvas2.parentNode.removeChild(chartCanvas2);
+							chartCanvas3.parentNode.removeChild(chartCanvas3);
+							chartCanvas4.parentNode.removeChild(chartCanvas4);
+                        }
+                        document.getElementById('errorMessage2').innerText = "Sorry, can't find this gene. Please ensure your input is the right pig ensembl name or gene name, e.g., ENSSSCG00000016916 or IL6ST\nOr try refresh this page.";
+                        console.log("Sorry, can't find this gene. Please ensure your input is the right pig ensembl name, e.g., ENSSSCG00000000131.");
+                    } else {
+                        
+                        // 提取blood1,3,4 四组数据
+						var blood1ResistantPosition = [
+							3, 22, 24, 25, 28, 34, 37, 42, 49, 58, 62, 63, 65, 66, 67, 71, 77, 78, 80, 86, 88, 89, 90, 94, 103, 106, 108, 109, 110, 111, 114, 116, 117, 120, 123, 126, 127, 129, 134, 136, 137, 138, 139, 140, 144, 145, 147, 149, 151, 153, 157, 158, 159, 161, 162, 163, 164, 166, 167, 168, 170, 171, 172, 174, 175, 178, 179, 182, 185, 189
+						];
+						var blood1ResilientPostion = [
+							6, 7, 17, 21, 26, 29, 39, 41, 44, 46, 69, 73, 95, 115, 121, 122, 141, 142, 155, 180, 181, 184, 186, 190
+						];
+						var blood1EarlydeadPostion = [
+							0, 2, 4, 5, 8, 9, 10, 11, 12, 13, 14, 18, 19, 20, 23, 30, 31, 32, 33, 35, 36, 38, 40, 45, 47, 48, 52, 53, 54, 56, 57, 59, 60, 61, 72, 74, 75, 76, 79, 81, 82, 83, 84, 85, 87, 91, 92, 93, 96, 97, 99, 102, 104, 105, 107, 113, 118, 119, 128, 130, 131, 132, 133, 143, 146, 148, 150, 154, 160, 165, 177, 183, 187, 188, 191
+						];
+						var blood1SusceptiblePostion = [
+							1, 15, 16, 27, 43, 50, 51, 55, 64, 68, 70, 98, 100, 101, 112, 124, 125, 135, 152, 156, 169, 173, 176, 192
+						];
+						
+						var blood1Resistant = blood1ResistantPosition.map(function (x) {
+							return Object.values(selectedRow)[x];
+						});
+						var blood1Resilient = blood1ResilientPosition.map(function (x) {
+							return Object.values(selectedRow)[x];
+						});
+						var blood1Earlydead = blood1EarlydeadPosition.map(function (x) {
+							return Object.values(selectedRow)[x];
+						});
+						var blood1Susceptible = blood1SusceptiblePosition.map(function (x) {
+							return Object.values(selectedRow)[x];
+						});
+						
+						var blood3ResistantPosition = [
+							254, 256, 272, 274, 277, 280, 284, 289, 294, 300, 303, 304, 306, 307, 308, 312, 317, 318, 320, 326, 328, 329, 330, 334, 342, 343, 344, 345, 346, 347, 349, 351, 352, 356, 359, 362, 366, 368, 369, 370, 371, 373, 378, 379, 380, 382, 383, 385, 387, 389, 392, 393, 394, 396, 397, 398, 399, 401, 402, 403, 404, 406, 407, 408, 410, 411, 413, 416, 419, 423
+						];
+						var blood3ResilientPostion = [
+							255, 258, 260, 271, 275, 278, 286, 288, 291, 293, 310, 314, 335, 350, 357, 358, 374, 375, 384, 390, 414, 415, 418, 420, 424
+						];
+						var blood3EarlydeadPostion = [
+							251, 253, 257, 259, 261, 262, 263, 264, 265, 268, 269, 270, 273, 279, 281, 282, 283, 285, 287, 292, 296, 297, 299, 301, 302, 313, 315, 316, 319, 321, 322, 323, 324, 325, 327, 331, 332, 333, 336, 337, 341, 353, 354, 355, 363, 364, 365, 376, 381, 386, 395, 400, 417, 421, 422, 425
+						];
+						var blood3SusceptiblePostion = [
+							252, 266, 267, 276, 290, 295, 298, 305, 309, 311, 338, 339, 340, 348, 360, 361, 367, 372, 377, 388, 391, 405, 409, 412, 426
+						];
+						
+						var blood3Resistant = blood3ResistantPosition.map(function (x) {
+							return Object.values(selectedRow)[x];
+						});
+						var blood3Resilient = blood3ResilientPosition.map(function (x) {
+							return Object.values(selectedRow)[x];
+						});
+						var blood3Earlydead = blood3EarlydeadPosition.map(function (x) {
+							return Object.values(selectedRow)[x];
+						});
+						var blood3Susceptible = blood3SusceptiblePosition.map(function (x) {
+							return Object.values(selectedRow)[x];
+						});
+						
+						
+						var blood4ResistantPosition = [
+							427, 430, 432, 433, 436, 438, 439, 442, 450, 452, 454, 455, 457, 458, 459, 463, 467, 468, 469, 473, 474, 475, 476, 479, 485, 486, 487, 488, 489, 491, 493, 496, 499, 501, 502, 503, 505, 506, 507, 508, 514, 515, 516, 517, 518, 521, 523, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 538, 539, 541, 542, 544, 545, 548, 551, 555
+						];
+						var blood4ResilientPostion = [
+							429, 434, 437, 440, 441, 444, 446, 461, 464, 480, 492, 497, 498, 510, 511, 519, 524, 546, 547, 550, 552, 556
+						];
+						var blood4EarlydeadPostion = [
+							428, 431, 445, 453, 465, 466, 470, 471, 472, 477, 478, 481, 490, 494, 495, 512, 520, 549, 553, 554
+						];
+						var blood4SusceptiblePostion = [
+							435, 443, 447, 448, 449, 451, 456, 460, 462, 482, 483, 484, 500, 504, 509, 513, 522, 525, 537, 540, 543, 557
+						];
+						
+						var blood4Resistant = blood4ResistantPosition.map(function (x) {
+							return Object.values(selectedRow)[x];
+						});
+						var blood4Resilient = blood4ResilientPosition.map(function (x) {
+							return Object.values(selectedRow)[x];
+						});
+						var blood4Earlydead = blood4EarlydeadPosition.map(function (x) {
+							return Object.values(selectedRow)[x];
+						});
+						var blood4Susceptible = blood4SusceptiblePosition.map(function (x) {
+							return Object.values(selectedRow)[x];
+						});
+						
+						
+                        // 创建 data 对象
+                        var blood1Box = [
+                            {
+                                type: 'box',
+                                y: blood1Resistant,
+                                jitter: 0.3,
+                                pointpos: -1.8,
+                                boxpoints: 'all',
+                                name: 'Resistance'
+                            },
+                            {
+                                type: 'box',
+                                y: blood1Resilient,
+                                jitter: 0.3,
+                                pointpos: -1.8,
+                                boxpoints: 'all',
+                                name: 'Resilience'
+                            },
+                            {
+                                type: 'box',
+                                y: blood1Susceptible,
+                                jitter: 0.3,
+                                pointpos: -1.8,
+                                boxpoints: 'all',
+                                name: 'Susceptible'
+                            },
+                            {
+                                type: 'box',
+                                boxpoints: 'all',
+                                y: blood1Earlydead,
+                                jitter: 0.3,
+                                pointpos: -1.8,
+                                name: 'Early_death'
+                            }
+                        ];
+						
+						var blood3Box = [
+                            {
+                                type: 'box',
+                                y: blood3Resistant,
+                                jitter: 0.3,
+                                pointpos: -1.8,
+                                boxpoints: 'all',
+                                name: 'Resistance'
+                            },
+                            {
+                                type: 'box',
+                                y: blood3Resilient,
+                                jitter: 0.3,
+                                pointpos: -1.8,
+                                boxpoints: 'all',
+                                name: 'Resilience'
+                            },
+                            {
+                                type: 'box',
+                                y: blood3Susceptible,
+                                jitter: 0.3,
+                                pointpos: -1.8,
+                                boxpoints: 'all',
+                                name: 'Susceptible'
+                            },
+                            {
+                                type: 'box',
+                                boxpoints: 'all',
+                                y: blood3Earlydead,
+                                jitter: 0.3,
+                                pointpos: -1.8,
+                                name: 'Early_death'
+                            }
+                        ];
+						
+						var blood4Box = [
+                            {
+                                type: 'box',
+                                y: blood4Resistant,
+                                jitter: 0.3,
+                                pointpos: -1.8,
+                                boxpoints: 'all',
+                                name: 'Resistance'
+                            },
+                            {
+                                type: 'box',
+                                y: blood4Resilient,
+                                jitter: 0.3,
+                                pointpos: -1.8,
+                                boxpoints: 'all',
+                                name: 'Resilience'
+                            },
+                            {
+                                type: 'box',
+                                y: blood4Susceptible,
+                                jitter: 0.3,
+                                pointpos: -1.8,
+                                boxpoints: 'all',
+                                name: 'Susceptible'
+                            },
+                            {
+                                type: 'box',
+                                boxpoints: 'all',
+                                y: blood4Earlydead,
+                                jitter: 0.3,
+                                pointpos: -1.8,
+                                name: 'Early_death'
+                            }
+                        ];
+
+                        // 创建 layout 对象
+                        var blood1BoxLayout = {
+                            title: 'Gene Expression Blood1',
+                            yaxis: {
+                                title: 'FPKM'
+                            }
+                        };
+						
+						var blood3BoxLayout = {
+                            title: 'Gene Expression Blood3',
+                            yaxis: {
+                                title: 'FPKM'
+                            }
+                        };
+						
+						var blood4BoxLayout = {
+                            title: 'Gene Expression Blood4',
+                            yaxis: {
+                                title: 'FPKM'
+                            }
+                        };
+
+                        // 使用 Plotly.newPlot 创建箱线图
+                        Plotly.newPlot('expressionChart1', blood1Box, blood1BoxLayout);
+						Plotly.newPlot('expressionChart2', blood3Box, blood3BoxLayout);
+						Plotly.newPlot('expressionChart3', blood4Box, blood4BoxLayout);
                         
                     }
                 }
