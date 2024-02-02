@@ -11,7 +11,6 @@
     <h1>Gene Expression Box Plot</h1>
     <p>Try refresh page if results can't show appropriately.</p>
 	<p style="color: blue;">You can selectively display the desired group by clicking on the name in the legend.</p>
-
     
     <div id="page1" class="page active">
         <h2>Cohort 1</h2>
@@ -27,6 +26,7 @@
 		<input type="text" id="geneInput2">
 		<button onclick="plotExpression2()">Plot Expression</button>
 		<div id="expressionChart4" style="width: 800px; height: 800px;"></div>
+		<div id="expressionChart5" style="width: 800px; height: 600px;"></div>
 		<div id="expressionChart1" style="width: 800px; height: 400px;"></div>
 		<div id="expressionChart2" style="width: 800px; height: 400px;"></div>
 		<div id="expressionChart3" style="width: 800px; height: 400px;"></div>
@@ -451,7 +451,34 @@
 							}
 						};
 						
+						
+						var resistantLine2 ={
+							type: 'scatter',
+							x: ["Before", "Early", "Later"],
+							y: [blood1ResistantMean, blood3ResistantMean, blood4ResistantMean],
+							name: 'Resistance Pig'
+						};
+						var resilientLine2 ={
+							type: 'scatter',
+							x: ["Before", "Early", "Later"],
+							y: [blood1ResilientMean, blood3ResilientMean, blood4ResilientMean],
+							name: 'Resilient Pig'
+						};
+						var susceptibleLine2 ={
+							type: 'scatter',
+							x: ["Before", "Early", "Later"],
+							y: [blood1SusceptibleMean, blood3SusceptibleMean, blood4SusceptibleMean],
+							name: 'Susceptible'
+						};
+						var earlydeadLine2 ={
+							type: 'scatter',
+							x: ["Before", "Early", "Later"],
+							y: [blood1EarlydeadMean, blood3EarlydeadMean, blood4EarlydeadMean],
+							name: 'Earlydead'
+						};
+						
 						var lineData = [resistantLine, resilientLine, susceptibleLine, earlydeadLine];
+						var lineData2 = [resistantLine2, resilientLine2, susceptibleLine2, earlydeadLine2];
 						console.log(lineData);
 						console.log(blood1Resistant);
 
@@ -486,9 +513,19 @@
 								title: 'Challenge Stage'
 							}
                         };
+						var lineLayout2 = {
+                            title: 'Gene Expression Change over Challenge Stage without error bars',
+                            yaxis: {
+                                title: 'Mean FPKM'
+                            },
+							xaixs: {
+								title: 'Challenge Stage'
+							}
+                        };
 
                         // 使用 Plotly.newPlot 创建箱线图
 						Plotly.newPlot('expressionChart4', lineData, lineLayout);
+						Plotly.newPlot('expressionChart5', lineData2, lineLayout2);
                         Plotly.newPlot('expressionChart1', blood1Box, blood1BoxLayout);
 						Plotly.newPlot('expressionChart2', blood3Box, blood3BoxLayout);
 						Plotly.newPlot('expressionChart3', blood4Box, blood4BoxLayout);
