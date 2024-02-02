@@ -375,34 +375,34 @@
 							return mean;
 						}
 						var blood1ResistantSE = calculateStandardDeviation(blood1Resistant.map(value => parseFloat(value)));
-						var blood1ResilientSE = calculateStandardDeviation(blood1Resilient);
-						var blood1EarlydeadSE = calculateStandardDeviation(blood1Earlydead);
-						var blood1SusceptibleSE = calculateStandardDeviation(blood1Susceptible);
+						var blood1ResilientSE = calculateStandardDeviation(blood1Resilient.map(value => parseFloat(value)));
+						var blood1EarlydeadSE = calculateStandardDeviation(blood1Earlydead.map(value => parseFloat(value)));
+						var blood1SusceptibleSE = calculateStandardDeviation(blood1Susceptible.map(value => parseFloat(value)));
 						
-						var blood3ResistantSE = calculateStandardDeviation(blood3Resistant);
-						var blood3ResilientSE = calculateStandardDeviation(blood3Resilient);
-						var blood3EarlydeadSE = calculateStandardDeviation(blood3Earlydead);
-						var blood3SusceptibleSE = calculateStandardDeviation(blood3Susceptible);
+						var blood3ResistantSE = calculateStandardDeviation(blood3Resistant.map(value => parseFloat(value)));
+						var blood3ResilientSE = calculateStandardDeviation(blood3Resilient.map(value => parseFloat(value)));
+						var blood3EarlydeadSE = calculateStandardDeviation(blood3Earlydead.map(value => parseFloat(value)));
+						var blood3SusceptibleSE = calculateStandardDeviation(blood3Susceptible.map(value => parseFloat(value)));
 						
-						var blood4ResistantSE = calculateStandardDeviation(blood4Resistant);
-						var blood4ResilientSE = calculateStandardDeviation(blood4Resilient);
-						var blood4EarlydeadSE = calculateStandardDeviation(blood4Earlydead);
-						var blood4SusceptibleSE = calculateStandardDeviation(blood4Susceptible);
+						var blood4ResistantSE = calculateStandardDeviation(blood4Resistant.map(value => parseFloat(value)));
+						var blood4ResilientSE = calculateStandardDeviation(blood4Resilient.map(value => parseFloat(value)));
+						var blood4EarlydeadSE = calculateStandardDeviation(blood4Earlydead.map(value => parseFloat(value)));
+						var blood4SusceptibleSE = calculateStandardDeviation(blood4Susceptible.map(value => parseFloat(value)));
 						
-						var blood1ResistantMean = calculateMean(blood1Resistant);
-						var blood1ResilientMean = calculateMean(blood1Resilient);
-						var blood1EarlydeadMean = calculateMean(blood1Earlydead);
-						var blood1SusceptibleMean = calculateMean(blood1Susceptible);
+						var blood1ResistantMean = calculateMean(blood1Resistant.map(value => parseFloat(value)));
+						var blood1ResilientMean = calculateMean(blood1Resilient.map(value => parseFloat(value)));
+						var blood1EarlydeadMean = calculateMean(blood1Earlydead.map(value => parseFloat(value)));
+						var blood1SusceptibleMean = calculateMean(blood1Susceptible.map(value => parseFloat(value)));
 						
-						var blood3ResistantMean = calculateMean(blood3Resistant);
-						var blood3ResilientMean = calculateMean(blood3Resilient);
-						var blood3EarlydeadMean = calculateMean(blood3Earlydead);
-						var blood3SusceptibleMean = calculateMean(blood3Susceptible);
+						var blood3ResistantMean = calculateMean(blood3Resistant.map(value => parseFloat(value)));
+						var blood3ResilientMean = calculateMean(blood3Resilient.map(value => parseFloat(value)));
+						var blood3EarlydeadMean = calculateMean(blood3Earlydead.map(value => parseFloat(value)));
+						var blood3SusceptibleMean = calculateMean(blood3Susceptible.map(value => parseFloat(value)));
 						
-						var blood4ResistantMean = calculateMean(blood4Resistant);
-						var blood4ResilientMean = calculateMean(blood4Resilient);
-						var blood4EarlydeadMean = calculateMean(blood4Earlydead);
-						var blood4SusceptibleMean = calculateMean(blood4Susceptible);
+						var blood4ResistantMean = calculateMean(blood4Resistant.map(value => parseFloat(value)));
+						var blood4ResilientMean = calculateMean(blood4Resilient.map(value => parseFloat(value)));
+						var blood4EarlydeadMean = calculateMean(blood4Earlydead.map(value => parseFloat(value)));
+						var blood4SusceptibleMean = calculateMean(blood4Susceptible.map(value => parseFloat(value)));
 						
 						var resistantLine ={
 							type: 'scatter',
