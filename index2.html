@@ -374,7 +374,7 @@
 							var mean = sum / data.length;
 							return mean;
 						}
-						var blood1ResistantSE = calculateStandardDeviation(blood1Resistant);
+						var blood1ResistantSE = calculateStandardDeviation(blood1Resistant.map(value => parseFloat(value)));
 						var blood1ResilientSE = calculateStandardDeviation(blood1Resilient);
 						var blood1EarlydeadSE = calculateStandardDeviation(blood1Earlydead);
 						var blood1SusceptibleSE = calculateStandardDeviation(blood1Susceptible);
