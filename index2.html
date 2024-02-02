@@ -24,10 +24,11 @@
 		<label for="geneInput2">Enter Gene Name:</label>
 		<input type="text" id="geneInput2">
 		<button onclick="plotExpression2()">Plot Expression</button>
+		<div id="expressionChart4" style="width: 800px; height: 400px;"></div>
 		<div id="expressionChart1" style="width: 800px; height: 400px;"></div>
 		<div id="expressionChart2" style="width: 800px; height: 400px;"></div>
 		<div id="expressionChart3" style="width: 800px; height: 400px;"></div>
-		<div id="expressionChart4" style="width: 800px; height: 400px;"></div>
+		
 		<div id="errorMessage2" style="color: red;"></div>
         
     </div>
@@ -360,6 +361,95 @@
                                 name: 'Early_death'
                             }
                         ];
+						// 创建折线图的数据
+						function calculateStandardDeviation(data) {
+							const mean = data.reduce((sum, value) => sum + value, 0) / data.length;
+							const squaredDifferences = data.map(value => Math.pow(value - mean, 2));
+							const meanSquaredDifferences = squaredDifferences.reduce((sum, value) => sum + value, 0) / squaredDifferences.length;
+							const standardDeviation = Math.sqrt(meanSquaredDifferences);
+						}
+						function calculateMean(data) {
+							const sum = data.reduce((total, value) => total + value, 0);
+							const mean = sum / data.length;
+							return mean;
+						}
+						var blood1ResistantSE = calculateStandardDeviation(blood1Resistant);
+						var blood1ResilientSE = calculateStandardDeviation(blood1Resilient);
+						var blood1EarlydeadSE = calculateStandardDeviation(blood1Earlydead);
+						var blood1SusceptibleSE = calculateStandardDeviation(blood1Susceptible);
+						
+						var blood3ResistantSE = calculateStandardDeviation(blood3Resistant);
+						var blood3ResilientSE = calculateStandardDeviation(blood3Resilient);
+						var blood3EarlydeadSE = calculateStandardDeviation(blood3Earlydead);
+						var blood3SusceptibleSE = calculateStandardDeviation(blood3Susceptible);
+						
+						var blood4ResistantSE = calculateStandardDeviation(blood4Resistant);
+						var blood4ResilientSE = calculateStandardDeviation(blood4Resilient);
+						var blood4EarlydeadSE = calculateStandardDeviation(blood4Earlydead);
+						var blood4SusceptibleSE = calculateStandardDeviation(blood4Susceptible);
+						
+						var blood1ResistantMean = calculateMean(blood1Resistant);
+						var blood1ResilientMean = calculateMean(blood1Resilient);
+						var blood1EarlydeadMean = calculateMean(blood1Earlydead);
+						var blood1SusceptibleMean = calculateMean(blood1Susceptible);
+						
+						var blood3ResistantMean = calculateMean(blood3Resistant);
+						var blood3ResilientMean = calculateMean(blood3Resilient);
+						var blood3EarlydeadMean = calculateMean(blood3Earlydead);
+						var blood3SusceptibleMean = calculateMean(blood3Susceptible);
+						
+						var blood4ResistantMean = calculateMean(blood4Resistant);
+						var blood4ResilientMean = calculateMean(blood4Resilient);
+						var blood4EarlydeadMean = calculateMean(blood4Earlydead);
+						var blood4SusceptibleMean = calculateMean(blood4Susceptible);
+						
+						var resistantLine ={
+							type: 'scatter',
+							x: ["Before", "Early", "Later"],
+							y: [blood1ResistantMean, blood3ResistantMean, blood4ResistantMean],
+							name: 'Resistance Pig',
+							error_y: {
+								type: 'data',
+								array: [blood1ResistantSE, blood3ResistantSE, blood4ResistantSE],
+								visible: true
+							}
+						};
+						var resilientLine ={
+							type: 'scatter',
+							x: ["Before", "Early", "Later"],
+							y: [blood1ResilientMean, blood3ResilientMean, blood4ResilientMean],
+							name: 'Resistance Pig',
+							error_y: {
+								type: 'data',
+								array: [blood1ResilientSE, blood3ResilientSE, blood4ResilientSE],
+								visible: true
+							}
+						};
+						var susceptibleLine ={
+							type: 'scatter',
+							x: ["Before", "Early", "Later"],
+							y: [blood1SusceptibleMean, blood3SusceptibleMean, blood4SusceptibleMean],
+							name: 'Resistance Pig',
+							error_y: {
+								type: 'data',
+								array: [blood1SusceptibleSE, blood3SusceptibleSE, blood4SusceptibleSE],
+								visible: true
+							}
+						};
+						var earlydeadLine ={
+							type: 'scatter',
+							x: ["Before", "Early", "Later"],
+							y: [blood1EarlydeadMean, blood3EarlydeadMean, blood4EarlydeadMean],
+							name: 'Resistance Pig',
+							error_y: {
+								type: 'data',
+								array: [blood1EarlydeadSE, blood3EarlydeadSE, blood4EarlydeadSE],
+								visible: true
+							}
+						};
+						
+						var lineData = [resistantLine, resilientLine, susceptibleLine, earlydeadLine];
+						
 
                         // 创建 layout 对象
                         var blood1BoxLayout = {
@@ -382,8 +472,19 @@
                                 title: 'FPKM'
                             }
                         };
+						
+						var lineLayout = {
+                            title: 'Gene Expression Change',
+                            yaxis: {
+                                title: 'Mean FPKM'
+                            },
+							xaixs: {
+								title: 'Challenge Stage'
+							}
+                        };
 
                         // 使用 Plotly.newPlot 创建箱线图
+						Plotly.newPlot('expressionChart4', lineData, lineLayout);
                         Plotly.newPlot('expressionChart1', blood1Box, blood1BoxLayout);
 						Plotly.newPlot('expressionChart2', blood3Box, blood3BoxLayout);
 						Plotly.newPlot('expressionChart3', blood4Box, blood4BoxLayout);
