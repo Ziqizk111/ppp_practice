@@ -419,7 +419,7 @@
 							type: 'scatter',
 							x: ["Before", "Early", "Later"],
 							y: [blood1ResilientMean, blood3ResilientMean, blood4ResilientMean],
-							name: 'Resistance Pig',
+							name: 'Resilient Pig',
 							error_y: {
 								type: 'data',
 								array: [blood1ResilientSE, blood3ResilientSE, blood4ResilientSE],
@@ -430,7 +430,7 @@
 							type: 'scatter',
 							x: ["Before", "Early", "Later"],
 							y: [blood1SusceptibleMean, blood3SusceptibleMean, blood4SusceptibleMean],
-							name: 'Resistance Pig',
+							name: 'Susceptible',
 							error_y: {
 								type: 'data',
 								array: [blood1SusceptibleSE, blood3SusceptibleSE, blood4SusceptibleSE],
@@ -441,7 +441,7 @@
 							type: 'scatter',
 							x: ["Before", "Early", "Later"],
 							y: [blood1EarlydeadMean, blood3EarlydeadMean, blood4EarlydeadMean],
-							name: 'Resistance Pig',
+							name: 'Earlydead',
 							error_y: {
 								type: 'data',
 								array: [blood1EarlydeadSE, blood3EarlydeadSE, blood4EarlydeadSE],
@@ -451,6 +451,7 @@
 						
 						var lineData = [resistantLine, resilientLine, susceptibleLine, earlydeadLine];
 						console.log(lineData);
+						console.log(blood1Resistant);
 
                         // 创建 layout 对象
                         var blood1BoxLayout = {
@@ -475,7 +476,7 @@
                         };
 						
 						var lineLayout = {
-                            title: 'Gene Expression Change',
+                            title: 'Gene Expression Change over Challenge Stage',
                             yaxis: {
                                 title: 'Mean FPKM'
                             },
