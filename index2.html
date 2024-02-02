@@ -363,14 +363,15 @@
                         ];
 						// 创建折线图的数据
 						function calculateStandardDeviation(data) {
-							const mean = data.reduce((sum, value) => sum + value, 0) / data.length;
-							const squaredDifferences = data.map(value => Math.pow(value - mean, 2));
-							const meanSquaredDifferences = squaredDifferences.reduce((sum, value) => sum + value, 0) / squaredDifferences.length;
-							const standardDeviation = Math.sqrt(meanSquaredDifferences);
+							var mean = data.reduce((sum, value) => sum + value, 0) / data.length;
+							var squaredDifferences = data.map(value => Math.pow(value - mean, 2));
+							var meanSquaredDifferences = squaredDifferences.reduce((sum, value) => sum + value, 0) / squaredDifferences.length;
+							var standardDeviation = Math.sqrt(meanSquaredDifferences);
+							return standardDeviation;
 						}
 						function calculateMean(data) {
-							const sum = data.reduce((total, value) => total + value, 0);
-							const mean = sum / data.length;
+							var sum = data.reduce((total, value) => total + value, 0);
+							var mean = sum / data.length;
 							return mean;
 						}
 						var blood1ResistantSE = calculateStandardDeviation(blood1Resistant);
@@ -449,7 +450,7 @@
 						};
 						
 						var lineData = [resistantLine, resilientLine, susceptibleLine, earlydeadLine];
-						
+						console.log(lineData);
 
                         // 创建 layout 对象
                         var blood1BoxLayout = {
